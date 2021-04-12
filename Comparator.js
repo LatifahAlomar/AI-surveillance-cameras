@@ -1,4 +1,4 @@
-export default class Comparator {
+class Comparator {
     /**
      * @param {function(a: *, b: *)} [compareFunction] - It may be custom compare function that, let's
      * say may compare custom objects together.

@@ -1,4 +1,4 @@
-export default class GraphEdge {
+class GraphEdge {
     /**
      * @param {GraphVertex} startVertex
      * @param {GraphVertex} endVertex

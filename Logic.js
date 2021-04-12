@@ -1,8 +1,3 @@
-import Graph from "Graph";
-import GraphVertex from 'GraphVertex';
-import GraphEdge from 'GraphEdge';
-import depthFirstSearch from '../depthFirstSearch';
-
 window.addEventListener('load', function something(node){
 let g = new Graph();
 g.addNode("A");

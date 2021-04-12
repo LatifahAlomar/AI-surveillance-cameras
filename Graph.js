@@ -1,4 +1,4 @@
-export default class Graph {
+class Graph {
     /**
      * @param {boolean} isDirected
      */

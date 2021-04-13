@@ -1,11 +1,18 @@
 window.addEventListener('load', function (){
-   var list = [0,null,0,null,0,null,0,null,0,null,0,null,0,0,0,0,0]; // we have to define the list here
-   var root = treeConvert(list);
-   console.log(cameraCover(root));
+    var list = [0,0,0,null,0,null,0,0,0]; // we have to define the list here
+    var root = arrayToTree(list);
+    console.log(cameraCover(root));
+    var list2 = treeToArray(root);
+    for (var i=0, j=0; i<list.length; i++){
+      if (list[i] != null){
+         list[i] = list2[j++];
+      }
+    }
+    console.log(list);
  }); 
  
- // Reference: https://stackoverflow.com/questions/37941318/how-to-build-an-incomplete-binary-tree-from-array-representation
- function treeConvert(list){
+ // Ref: https://stackoverflow.com/questions/37941318/how-to-build-an-incomplete-binary-tree-from-array-representation
+ function arrayToTree(list){
    if (list == null || list.length == 0)
      return null;
    var treeNodeQueue = new Queue();
@@ -34,6 +41,22 @@ window.addEventListener('load', function (){
    }
    return root;
  }
+ // Ref: https://www.geeksforgeeks.org/level-order-tree-traversal/
+ function treeToArray(root){
+  var array = [];
+  var list = new Queue();
+  list.enqueue(root);
+  var i = 0;
+  while(!list.isEmpty()){
+    var temp = list.dequeue();
+    array[i++] = temp.val;
+    if (temp.left != null)
+      list.enqueue(temp.left);
+    if (temp.right != null)
+      list.enqueue(temp.right);
+  }
+  return array;
+ }
  
  function cameraCover(root) { // here is the logic
      
@@ -54,7 +77,8 @@ window.addEventListener('load', function (){
          
          if(left == leaf || right == leaf || left == needCover ||
             right == needCover) {
-             cameras++;
+              node.val = "c";
+              cameras++;
              return hascamera;
          }
          
@@ -65,7 +89,8 @@ window.addEventListener('load', function (){
      
      let rootstate = check(root);
      if(rootstate == needCover || rootstate == leaf) {
-         cameras++;
+        root.val = "c";
+        cameras++;
      }
      return cameras;
  };

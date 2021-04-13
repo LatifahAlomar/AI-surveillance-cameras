@@ -1,47 +1,95 @@
-window.addEventListener('load', function something(node){
-let g = new Graph();
-g.addNode("A");
-g.addNode("B");
-g.addNode("C");
-g.addNode("D");
-g.addNode("E");
-g.addNode("F");
-g.addNode("G");
+window.addEventListener('load', function (){
+   var list = [0,null,0,null,0,null,0,null,0,null,0,null,0,0,0,0,0]; // we have to define the list here
+   var root = treeConvert(list);
+   console.log(cameraCover(root));
+ }); 
+ 
+ // Reference: https://stackoverflow.com/questions/37941318/how-to-build-an-incomplete-binary-tree-from-array-representation
+ function treeConvert(list){
+   if (list == null || list.length == 0)
+     return null;
+   var treeNodeQueue = new Queue();
+   var integerQueue = new Queue();
+   for (var i = 1; i < list.length; i++){
+     integerQueue.enqueue(list[i]);
+   }
+   
+   var root = new TreeNode(list[0]);
+   treeNodeQueue.enqueue(root);
+   console.log(treeNodeQueue);
+   while (!integerQueue.isEmpty()){
+     var leftVal = integerQueue.isEmpty()? null : integerQueue.dequeue();
+     var rightVal = integerQueue.isEmpty()? null : integerQueue.dequeue();
+     var current = treeNodeQueue.dequeue();
+     if (leftVal != null){
+       var left = new TreeNode (leftVal);
+       current.left = left;
+       treeNodeQueue.enqueue(left);
+     }
+     if (rightVal != null){
+       var right = new TreeNode (rightVal);
+       current.right = right;
+       treeNodeQueue.enqueue(right);
+     }
+   }
+   return root;
+ }
+ 
+ function cameraCover(root) { // here is the logic
+     
+     const empty = 0;
+     const leaf = 1;
+     const covered = 2;
+     const needCover = 3;
+     const hascamera = 4;
+     
+     let cameras = 0;
+     
+     const check = node => { // recursive method to place cameras
+         if(!node) return empty;
+         if(!node.left && !node.right) return leaf;
+         
+         let left = check(node.left);
+         let right = check(node.right);
+         
+         if(left == leaf || right == leaf || left == needCover ||
+            right == needCover) {
+             cameras++;
+             return hascamera;
+         }
+         
+         if(left == hascamera || right == hascamera)  return covered;
+         
+         return needCover;
+     }
+     
+     let rootstate = check(root);
+     if(rootstate == needCover || rootstate == leaf) {
+         cameras++;
+     }
+     return cameras;
+ };
+ 
+ // Definition of a binary tree node.
+   function TreeNode(val, left, right) {
+       this.val = (val===undefined ? 0 : val)
+       this.left = (left===undefined ? null : left)
+       this.right = (right===undefined ? null : right)
+   }
+ 
+   // Ref: https://www.javascripttutorial.net/javascript-queue/
+   function Queue() {
+      this.elements = [];
+   }
 
-g.addEdge("A", "C");
-g.addEdge("A", "B");
-g.addEdge("A", "D");
-g.addEdge("D", "E");
-g.addEdge("E", "F");
-g.addEdge("B", "G");
+   Queue.prototype.enqueue = function (e) {
+      this.elements.push(e);
+   };
 
-g.DFS("A");
-});
+   Queue.prototype.dequeue = function () {
+      return this.elements.shift();
+  };
 
-function DFS (node){
-    // Create a Stack and add our initial node in it
-    let s = new Stack(this.nodes.length);
-    let explored = new Set();
-    s.push(node);
- 
-    // Mark the first node as explored
-    explored.add(node);
- 
-    // We'll continue till our Stack gets empty
-    while (!s.isEmpty()) {
-       let t = s.pop();
- 
-    // Log every element that comes out of the Stack
-       console.log(t);
- 
-    // 1. In the edges object, we search for nodes this node is directly connected to.
-    // 2. We filter out the nodes that have already been explored.
-    // 3. Then we mark each unexplored node as explored and push it to the Stack.
-    this.edges[t]
-    .filter(n => !explored.has(n))
-    .forEach(n => {
-       explored.add(n);
-       s.push(n);
-       });
-    } 
-}
+  Queue.prototype.isEmpty = function () {
+   return this.elements.length == 0;
+};

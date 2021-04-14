@@ -1,18 +1,19 @@
+//take the list and perform dfs then return the tree with cameras
 function search(list){
 
-  console.log( list);
-
-  console.log(typeof list);
+  //convert list from string to array
   list = list.split(',');
   for(i=0;i<list.length ; i++){
     if(list[i]=='null')
     list[i]=null;
   }
-  var root = arrayToTree(list);
-  console.log(cameraCover(root));
 
+  //convert from array to tree then search 
+  var root = arrayToTree(list);
+  //convert from tree to array
   var list2 = treeToArray(root);
 
+  //to show in html
   document.getElementById("info").innerHTML= '<div class="col"><h1>'+cameraCover(root)+'</h1></div>'+
   '<div class="col"><h1>'+list2.length+'</h1></div>'+
   '<div class="w-100"></div>'+
@@ -23,18 +24,13 @@ function search(list){
        list[i] = list2[j++];
     }
   }
-  console.log( list);
-
-
-
   text = ' <ul>'
   +returnListFromTree(root)
        +'</ul>';
- 
-     document.getElementById("tree").innerHTML= text;
+  document.getElementById("tree").innerHTML= text;
 }
 
-
+//tree representation for html page
 function returnListFromTree(node){
   var list="";
   var left="";
@@ -56,27 +52,6 @@ function returnListFromTree(node){
 }
 
 
-function returnList( array,index){
-  var list="";
-  var left="";
-  var right="";
-  if(array[index]==null)
-  return list;
-  else {
-   list='<li><span class="tf-nc">'+array[index]+'</span>';
-   if((2*index)+1 < array.length)
-   left = returnList(array,(2*index)+1);
-
-   if((2*index)+2 < array.length)
-   right = returnList(array,(2*index)+2);
-
-   if(left != "" || right != "")
-   list +='<ul>' +left+right+'</ul>';
-
-   list +='</li>';
-  }
-  return list;
-}
 
  
  // Ref: https://stackoverflow.com/questions/37941318/how-to-build-an-incomplete-binary-tree-from-array-representation

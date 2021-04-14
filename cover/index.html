@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en" class="h-100">
   <head>
+    <!--https://www.cssscript.com/semantic-hierarchy-tree-treeflex/-->
     <link href="https://unpkg.com/treeflex/dist/css/treeflex.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="Logic.js"></script>
@@ -11,12 +12,11 @@
     <meta name="generator" content="Hugo 0.82.0">
     <title>AI project</title>
    
+    <!--Cover template for https://getbootstrap.com/ Bootstrap by https://twitter.com/mdo-->
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/cover/">
 
-    
-
     <!-- Bootstrap core CSS -->
-<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -37,89 +37,72 @@
         border:solid whitesmoke;
       }
       li:before {
-
         border-top: white;
       }
 
       .tf-node-content, .tf-nc, .tf-nc::after, .tf-nc::before {
         border: white;
-
       }
       .example .tf-nc {
-        /* css here */
         border:solid white;
-
       }
-
-
     </style>
 
-    
     <!-- Custom styles for this template -->
     <link href="cover.css" rel="stylesheet">
   </head>
   <body class="d-flex h-100 text-center text-white bg-dark">
     
-<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-  <header class="mb-auto">
-    <div>
-      <h3 class="float-md-start mb-0">Depth-first search</h3>
+      <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <header class="mb-auto">
+          <div>
+            <h3 class="float-md-start mb-0">Depth-first search</h3>
+          </div>
+        </header>
+        
 
-      </nav>
-    </div>
-  </header>
-  
-  <main class="px-3">
-    <div id = "welcome">
+        <main class="px-3">
+          <div id = "welcome">
+            <h1>HI</h1>
+            <p class="lead">I heard that you want to put cameras in your tree</p>
+            <p class="lead">enter your tree as array </p>
+          </div>
 
-    <h1>HI</h1>
-    <p class="lead">I heard that you want to put cameras in your tree</p>
-    <p class="lead">enter your tree as array </p>
-    </div>
+          <p class="lead">
+            <form on>
+              <input type="text" id="levels" placeholder="ex: 0,0,null,..." >
+              <button type="button" id = "searchBtn" class="btn btn-sm btn-secondary fw-bold border-white bg-white" onclick="myFunction()">search</button>
+            </form>
+          </p>
+          <p class="lead" id = "changes"></p>
 
-    <p class="lead">
-      <form on>
-        <input type="text" id="levels" placeholder="ex: 0,0,null,..." >
-        <button type="button" id = "searchBtn" class="btn btn-sm btn-secondary fw-bold border-white bg-white" onclick="myFunction()">search</button>
-      </form>
-    </p>
-    <p class="lead" id = "changes"></p>
+          <div class="row" id= "info">
 
-    <div class="row" id= "info">
+          </div>
 
-    </div>
+          <div style="margin: 0; padding: 0; border: 0;">
+            <div class="tf-tree example" id = "tree">
 
-    <div style="margin: 0; padding: 0; border: 0;">
-      <div class="tf-tree example" id = "tree">
+            </div>
+            <p class="lead" id = "tips"></p>
+
+          </div>
+        </main>
+
+        <footer class="mt-auto text-white-50"></footer>
 
       </div>
-      <p class="lead" id = "tips"></p>
-
-    </div>
-  </main>
-
-  <footer class="mt-auto text-white-50">
-    <!--<p>Cover template for <a href="https://getbootstrap.com/" class="text-white">Bootstrap</a>, by <a href="https://twitter.com/mdo" class="text-white">@mdo</a>.</p>-->
-  </footer>
-</div>
-<script>
-  function myFunction() {
-  var input, text;
-  input = document.getElementById("levels").value;
-  console.log( input);
-  search(input);
-    document.getElementById("welcome").innerHTML= "<h1>again?</h1>";
-    document.getElementById("changes").innerHTML= "<strong>voila!    </strong>here is your tree fully monitored";
-    document.getElementById("tips").innerHTML= "big tree? scroll it";
-    
-  }
-
-
-
-
-  </script>
-
-
-    
+      <script>
+          function myFunction() {
+          var input, text;
+          input = document.getElementById("levels").value;
+          console.log( input);
+          search(input);
+            document.getElementById("welcome").innerHTML= "<h1>again?</h1>";
+            document.getElementById("changes").innerHTML= "<strong>voila!    </strong>here is your tree fully monitored";
+            document.getElementById("tips").innerHTML= "big tree? scroll it";
+            
+          }
+      </script> 
   </body>
 </html>

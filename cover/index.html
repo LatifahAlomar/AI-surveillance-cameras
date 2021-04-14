@@ -79,16 +79,17 @@
 
     <p class="lead">
       <form on>
-        <input type="text" id="levels" >
+        <input type="text" id="levels" placeholder="ex: 0,0,null,..." >
         <button type="button" id = "searchBtn" class="btn btn-sm btn-secondary fw-bold border-white bg-white" onclick="myFunction()">search</button>
       </form>
     </p>
+    <p class="lead" id = "changes"></p>
+
     <div class="row" id= "info">
 
     </div>
 
     <div style="margin: 0; padding: 0; border: 0;">
-      <p class="lead" id = "changes"></p>
       <div class="tf-tree example" id = "tree">
 
       </div>
@@ -105,7 +106,8 @@
   function myFunction() {
   var input, text;
   input = document.getElementById("levels").value;
-  search();
+  console.log( input);
+  search(input);
     document.getElementById("welcome").innerHTML= "<h1>again?</h1>";
     document.getElementById("changes").innerHTML= "<strong>voila!    </strong>here is your tree fully monitored";
     document.getElementById("tips").innerHTML= "big tree? scroll it";

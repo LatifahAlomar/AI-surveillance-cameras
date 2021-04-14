@@ -1,6 +1,13 @@
-function search(){
-  var list = String(document.getElementById('levels')).split(','); // we have to define the list here
+function search(list){
+
+  console.log( list);
+
   console.log(typeof list);
+  list = list.split(',');
+  for(i=0;i<list.length ; i++){
+    if(list[i]=='null')
+    list[i]=null;
+  }
   var root = arrayToTree(list);
   console.log(cameraCover(root));
 
@@ -18,11 +25,34 @@ function search(){
   }
   console.log( list);
 
+
+
   text = ' <ul>'
-  +returnList(list,0)
+  +returnListFromTree(root)
        +'</ul>';
  
      document.getElementById("tree").innerHTML= text;
+}
+
+
+function returnListFromTree(node){
+  var list="";
+  var left="";
+  var right="";
+  if(node==null)
+  return "";
+  else {
+   list='<li><span class="tf-nc">'+node.val+'</span>';
+   
+   left = returnListFromTree(node.left);
+   right = returnListFromTree(node.right);
+
+   if(left != "" || right != "")
+   list +='<ul>' +left+right+'</ul>';
+
+   list +='</li>';
+  }
+  return list;
 }
 
 
@@ -47,7 +77,6 @@ function returnList( array,index){
   }
   return list;
 }
-
 
  
  // Ref: https://stackoverflow.com/questions/37941318/how-to-build-an-incomplete-binary-tree-from-array-representation

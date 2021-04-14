@@ -1,15 +1,54 @@
-window.addEventListener('load', function (){
-    var list = [0,0,0,null,0,null,0,0,0]; // we have to define the list here
-    var root = arrayToTree(list);
-    console.log(cameraCover(root));
-    var list2 = treeToArray(root);
-    for (var i=0, j=0; i<list.length; i++){
-      if (list[i] != null){
-         list[i] = list2[j++];
-      }
+function search(){
+  var list = String(document.getElementById('levels')).split(','); // we have to define the list here
+  console.log(typeof list);
+  var root = arrayToTree(list);
+  console.log(cameraCover(root));
+
+  var list2 = treeToArray(root);
+
+  document.getElementById("info").innerHTML= '<div class="col"><h1>'+cameraCover(root)+'</h1></div>'+
+  '<div class="col"><h1>'+list2.length+'</h1></div>'+
+  '<div class="w-100"></div>'+
+  '<div class="col">cameras</div>'+
+  '<div class="col">generated nodes</div><br><br>';
+  for (var i=0, j=0; i<list.length; i++){
+    if (list[i] != null){
+       list[i] = list2[j++];
     }
-    console.log(list);
- }); 
+  }
+  console.log( list);
+
+  text = ' <ul>'
+  +returnList(list,0)
+       +'</ul>';
+ 
+     document.getElementById("tree").innerHTML= text;
+}
+
+
+function returnList( array,index){
+  var list="";
+  var left="";
+  var right="";
+  if(array[index]==null)
+  return list;
+  else {
+   list='<li><span class="tf-nc">'+array[index]+'</span>';
+   if((2*index)+1 < array.length)
+   left = returnList(array,(2*index)+1);
+
+   if((2*index)+2 < array.length)
+   right = returnList(array,(2*index)+2);
+
+   if(left != "" || right != "")
+   list +='<ul>' +left+right+'</ul>';
+
+   list +='</li>';
+  }
+  return list;
+}
+
+
  
  // Ref: https://stackoverflow.com/questions/37941318/how-to-build-an-incomplete-binary-tree-from-array-representation
  function arrayToTree(list){

@@ -1,0 +1,152 @@
+$primary_color: rgb(255, 255, 255);
+$scaling_factor: 1;
+
+$node_gap: 1em; /* setting a size in em makes sure that the gap scales too with the scaling factor */
+$sm_node_gap: $node_gap * .6;
+$lg_node_gap: $node_gap * 1.5;
+
+$connector_width: .0625em;
+$connector_style: solid;
+
+.tf-tree {
+  overflow: auto;
+  font-size: 16px * $scaling_factor;
+  
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+  ul { display: inline-flex; }
+
+  li {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0 $node_gap;
+
+    ul { margin: ($node_gap * 2) 0; }
+    
+    li:before {
+      display: block;
+      position: absolute;
+      width: 100%;
+      left: calc(0% - #{$connector_width / 2});
+      top: calc(#{-$node_gap} - #{$connector_width / 2});
+      content: '';
+      border-top: $connector_width $connector_style $primary_color;
+      height: $connector_width;
+    }
+    
+    li:first-child:before {
+      left: calc(50% - #{$connector_width / 2});
+      max-width: calc(100% - 50% + #{$connector_width});
+    }
+    li:last-child:before {
+      left: auto;
+      right: calc(50% - #{$connector_width / 2});
+      max-width: calc(100% - 50% + #{$connector_width});
+    }
+    li:only-child:before { display: none; }
+
+    li:only-child > .tf-node-content:before,
+    li:only-child > .tf-nc:before {
+      height: calc(#{$node_gap} + #{$connector_width});
+      top: calc(#{-$node_gap} - #{$connector_width});
+    }
+  }
+
+  .tf-node-content, .tf-nc {
+    position: relative;
+    display: inline-block;
+    border: $connector_width solid $primary_color;
+    padding: ($node_gap / 2) $node_gap;
+
+    &:before {
+      position: absolute;
+      display: block;
+      height: $node_gap;
+      left: calc(50% - #{$connector_width / 2});
+      top: calc(#{-$node_gap} - #{$connector_width / 2});
+      content: '';
+      border-left: $connector_width $connector_style $primary_color;
+      width: $connector_width;
+    }
+
+    &:after {
+      position: absolute;
+      display: block;
+      height: $node_gap;
+      left: calc(50% - #{$connector_width / 2});
+      top: calc(100% + #{$connector_width / 2});
+      content: '';
+      border-left: $connector_width $connector_style $primary_color;
+      width: $connector_width;
+    }
+    &:only-child:after { display: none; }
+  }
+  
+  >ul>li>.tf-node-content:before, >ul>li>.tf-nc:before { display: none; }
+
+  &.tf-gap-sm li {
+    padding: 0 $sm_node_gap;
+    >.tf-node-content, >.tf-nc {
+      &:before {
+        height: $sm_node_gap;
+        top: -$sm_node_gap;
+      } 
+      &:after { height: $sm_node_gap; }
+    } 
+    ul { margin: ($sm_node_gap * 2) 0; }
+    li:before { top: calc(#{-$sm_node_gap} - #{$connector_width / 2}); }
+
+    li:only-child > .tf-node-content:before,
+    li:only-child > .tf-nc:before {
+      height: calc(#{$sm_node_gap} + #{$connector_width});
+      top: calc(#{-$sm_node_gap} - #{$connector_width});
+    }
+  }
+  
+  &.tf-gap-lg li {
+    padding: 0 $lg_node_gap;
+    >.tf-node-content, >.tf-nc {
+      &:before {
+        height: $lg_node_gap;
+        top: -$lg_node_gap;
+      } 
+      &:after { height: $lg_node_gap; }
+    } 
+    ul { margin: ($lg_node_gap * 2) 0; }
+    li:before { top: calc(#{-$lg_node_gap} - #{$connector_width / 2}); }
+
+    li:only-child > .tf-node-content:before,
+    li:only-child > .tf-nc:before {
+      height: calc(#{$lg_node_gap} + #{$connector_width});
+      top: calc(#{-$lg_node_gap} - #{$connector_width});
+    }
+  }
+
+  li.tf-dotted-children {
+    .tf-node-content, .tf-nc {
+      &:before, &:after { border-left-style: dotted; }
+    }
+    li:before { border-top-style: dotted; }
+
+    >.tf-node-content:before, >.tf-nc:before {
+      border-left-style: solid;
+    }
+  }
+
+  li.tf-dashed-children {
+    .tf-node-content, .tf-nc {
+      &:before, &:after { border-left-style: dashed; }
+    }
+    li:before { border-top-style: dashed; }
+
+    >.tf-node-content:before, >.tf-nc:before {
+      border-left-style: solid;
+    }
+  }
+}

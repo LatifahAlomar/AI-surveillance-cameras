@@ -100,10 +100,11 @@ function returnListFromTree(node){
   }
   return array;
  }
- 
+ //REF:https://medium.com/@gokul.jai.soften
+ ///binary-tree-cameras-leetcode-solve-using-depth-first-search-recursive-method-dfd59683e49
  function cameraCover(root) { // here is the logic
      
-     const empty = 0;
+     const empty = 0; // null refrence of node 
      const leaf = 1;
      const covered = 2;
      const needCover = 3;
@@ -112,12 +113,15 @@ function returnListFromTree(node){
      let cameras = 0;
      
      const check = node => { // recursive method to place cameras
-         if(!node) return empty;
-         if(!node.left && !node.right) return leaf;
+         if(!node) return empty; // if there is no node == null 
+         if(!node.left && !node.right) return leaf; // if there is no children then it is leaf 
          
+		 // recursive call
          let left = check(node.left);
          let right = check(node.right);
          
+		 //if left child and right child are leafs or asking for cover 
+		 //in this case, we install a camera and update the status to hascamera 
          if(left == leaf || right == leaf || left == needCover ||
             right == needCover) {
               node.val = "c";
@@ -125,11 +129,14 @@ function returnListFromTree(node){
              return hascamera;
          }
          
+		// if the node is already covered	
          if(left == hascamera || right == hascamera)  return covered;
          
+		 //if none of the previous condition applied, then this node needs to be covered 
          return needCover;
      }
      
+	 //root check, if it is needs to cover or if it is a leaf 
      let rootstate = check(root);
      if(rootstate == needCover || rootstate == leaf) {
         root.val = "c";
